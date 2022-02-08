@@ -1,16 +1,16 @@
 # flutter_bytebank
 
-A new Flutter project.
+Aplicação de banco digital para aprendizagem de Flutter.
 
-## Getting Started
+## Mão na massa
 
-This project is a starting point for a Flutter application.
+Este projeto é uma aplicação Flutter direcionada ao aprendizado, simulando uma aplicação de banco monetário.
+Com uma única base de código minha aplicação ter versões para Android, iOS, Web e Desktop (Windows).
+O layout da aplicação corresponde ao Material Design que é um padrão de interface que o Google documentou com base em boas práticas e acessibilidade.
 
-A few resources to get you started if this is your first Flutter project:
+Links úteis:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- [Codelab](https://flutter.dev/docs/get-started/codelab)
+- [Documentação do Flutter](https://flutter.dev/docs)
+- [Livro de receitas](https://flutter.dev/docs/cookbook)
+- [Canal oficial do Flutter](https://www.youtube.com/channel/UCwXdFgeE9KYzlDdR7TG9cMw)
