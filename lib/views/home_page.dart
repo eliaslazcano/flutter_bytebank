@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bytebank/components/home_page/btn_acao.dart';
 import 'package:flutter_bytebank/views/transferencias.dart';
 
 class HomePage extends StatelessWidget {
@@ -10,25 +9,53 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Dashboard')),
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              _botoesAcao(),
-            ],
-          ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8),
+              child: Image.asset('images/bytebank_logo.png'),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    _botaoNavegar(context, 'Contatos', Icons.people),
+                    _botaoNavegar(context, 'Transferências', Icons.monetization_on, () => const Transferencias()),
+                  ],
+                ),
+              ),
+            )
+          ],
         ),
       ),
     );
   }
 
-  _botoesAcao() {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 20),
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(children: const [
-          BtnAcao(icone: Icons.monetization_on, titulo: 'Transferências', view: Transferencias(), primeiro: true),
-        ]),
+  _botaoNavegar(BuildContext context, String titulo, IconData icone, [Function? view]) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 8),
+      child: Material(
+        color: Theme.of(context).primaryColor,
+        child: InkWell(
+          child: Container(
+            height: 100,
+            width: 150,
+            padding: const EdgeInsets.all(8),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Icon(icone, color: Colors.white, size: 24),
+                Text(titulo, style: const TextStyle(color: Colors.white, fontSize: 16))
+              ],
+            ),
+          ),
+          onTap: () => view != null ? Navigator.push(context, MaterialPageRoute(builder: (context) => view())) : null,
+        ),
       ),
     );
   }
