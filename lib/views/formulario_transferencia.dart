@@ -11,31 +11,33 @@ class FormularioTransferencia extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Nova transferência')),
-      body: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.all(16),
-            child: TextField(
-              controller: _controllerIptNumeroConta,
-              decoration: InputDecoration(labelText: 'Número da conta', hintText: '0000'),
-              style: TextStyle(fontSize: 24),
-              keyboardType: TextInputType.number,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.all(16),
+              child: TextField(
+                controller: _controllerIptNumeroConta,
+                decoration: InputDecoration(labelText: 'Número da conta', hintText: '0000'),
+                style: TextStyle(fontSize: 24),
+                keyboardType: TextInputType.number,
+              ),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(16),
-            child: TextField(
-              controller: _controllerIptValor,
-              decoration: InputDecoration(labelText: 'Valor', hintText: '0.00', icon: Icon(Icons.monetization_on)),
-              style: TextStyle(fontSize: 24),
-              keyboardType: TextInputType.number,
+            Padding(
+              padding: EdgeInsets.all(16),
+              child: TextField(
+                controller: _controllerIptValor,
+                decoration: InputDecoration(labelText: 'Valor', hintText: '0.00', icon: Icon(Icons.monetization_on)),
+                style: TextStyle(fontSize: 24),
+                keyboardType: TextInputType.number,
+              ),
             ),
-          ),
-          ElevatedButton(
-            onPressed: () => _criarTransferencia(context),
-            child: const Text('Confirmar'),
-          ),
-        ],
+            ElevatedButton(
+              onPressed: () => _criarTransferencia(context),
+              child: const Text('Confirmar'),
+            ),
+          ],
+        ),
       ),
     );
   }
