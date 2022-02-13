@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bytebank/views/transferencias.dart';
+import 'package:flutter_bytebank/views/home_page.dart';
 
 void main() => runApp(const BytebankApp());
 
@@ -9,8 +9,8 @@ class BytebankApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        home: Transferencias(),
+    return const MaterialApp(
+        home: HomePage(),
     );
   }
 }
