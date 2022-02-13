@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bytebank/views/contatos.dart';
 import 'package:flutter_bytebank/views/transferencias.dart';
 
 class HomePage extends StatelessWidget {
@@ -23,7 +24,7 @@ class HomePage extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
-                    _botaoNavegar(context, 'Contatos', Icons.people),
+                    _botaoNavegar(context, 'Contatos', Icons.people, () => const Contatos()),
                     _botaoNavegar(context, 'Transferências', Icons.monetization_on, () => const Transferencias()),
                   ],
                 ),
