@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bytebank/components/item_transferencia.dart';
+import 'package:flutter_bytebank/database/dao/transferencia_dao.dart';
 import 'package:flutter_bytebank/model/transferencia.dart';
 import 'package:flutter_bytebank/views/formulario_transferencia.dart';
-
-import '../database/app_database.dart';
 
 class Transferencias extends StatefulWidget {
 
@@ -20,8 +18,8 @@ class _TransferenciasState extends State<Transferencias> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Transferências'),),
-      body: FutureBuilder<List>(
-        future: obterTransferencias(),
+      body: FutureBuilder<List<Transferencia>>(
+        future: TransferenciaDao().listar(),
         builder: (context, snapshot) {
           if (snapshot.connectionState != ConnectionState.done) {
             return const Center(child: CircularProgressIndicator());
@@ -31,7 +29,7 @@ class _TransferenciasState extends State<Transferencias> {
             return ListView.builder(
               itemCount: items.length,
               itemBuilder: (context, index) {
-                final Transferencia transferencia = Transferencia.fromMap(items[index]);
+                final Transferencia transferencia = items[index];
                 return Card(
                   child: ListTile(
                     leading: const Icon(Icons.monetization_on, size: 40),
@@ -52,10 +50,5 @@ class _TransferenciasState extends State<Transferencias> {
         },
       ),
     );
-  }
-
-  Future<List> obterTransferencias() async {
-    final db = await AppDatabase.obterConexao();
-    return await db.query('transferencias');
   }
 }

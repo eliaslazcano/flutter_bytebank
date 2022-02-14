@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bytebank/database/app_database.dart';
+import 'package:flutter_bytebank/database/dao/contato_dao.dart';
 import 'package:flutter_bytebank/model/contato.dart';
 import 'package:flutter_bytebank/views/formulario_contato.dart';
 
@@ -18,8 +18,8 @@ class _ContatosState extends State<Contatos> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Contatos')),
-      body: FutureBuilder<List>(
-        future: obterContatos(),
+      body: FutureBuilder<List<Contato>>(
+        future: ContatoDao().listar(),
         builder: (context, snapshot) {
           if (snapshot.connectionState != ConnectionState.done) {
             return const Center(child: CircularProgressIndicator());
@@ -29,7 +29,7 @@ class _ContatosState extends State<Contatos> {
             return ListView.builder(
               itemCount: items.length,
               itemBuilder: (context, index) {
-                final Contato contato = Contato.fromMap(items[index]);
+                final Contato contato = items[index];
                 return Card(
                   child: ListTile(
                     title: Text(contato.nome, style: const TextStyle(fontSize: 24)),
@@ -49,10 +49,5 @@ class _ContatosState extends State<Contatos> {
         },
       ),
     );
-  }
-
-  Future<List> obterContatos() async {
-    final db = await AppDatabase.obterConexao();
-    return await db.query('contatos');
   }
 }

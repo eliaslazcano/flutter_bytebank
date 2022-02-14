@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bytebank/database/app_database.dart';
+import 'package:flutter_bytebank/database/dao/contato_dao.dart';
 import 'package:flutter_bytebank/model/contato.dart';
 
 class FormularioContato extends StatelessWidget {
@@ -58,10 +58,8 @@ class FormularioContato extends StatelessWidget {
     }
 
     //Adicionando no banco
-    final contatoObj = {'nome': nome, 'numero_conta': numeroConta};
-    final db = await AppDatabase.obterConexao();
-    await db.insert('contatos', contatoObj);
-    db.close();
+    final contato = Contato(nome: nome, numeroConta: numeroConta);
+    await ContatoDao().inserir(contato);
 
     Navigator.pop(context);
   }

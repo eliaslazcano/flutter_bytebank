@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bytebank/database/dao/transferencia_dao.dart';
 import 'package:flutter_bytebank/model/transferencia.dart';
-
-import '../database/app_database.dart';
 
 class FormularioTransferencia extends StatelessWidget {
   final _controllerIptNumeroConta = TextEditingController();
@@ -54,10 +53,8 @@ class FormularioTransferencia extends StatelessWidget {
     }
 
     //Adicionando no banco
-    final transferenciaObj = {'valor': valor, 'numero_conta': numeroConta};
-    final db = await AppDatabase.obterConexao();
-    await db.insert('transferencias', transferenciaObj);
-    db.close();
+    final transferencia = Transferencia(valor: valor, numeroConta: numeroConta);
+    await TransferenciaDao().inserir(transferencia);
 
     Navigator.pop(context);
   }
