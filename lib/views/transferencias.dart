@@ -30,13 +30,16 @@ class _TransferenciasState extends State<Transferencias> {
             if (items == null) return const Center(child: CircularProgressIndicator());
             return ListView.builder(
               itemCount: items.length,
-              itemBuilder: (context, index) => Card(
-                child: ListTile(
-                  leading: const Icon(Icons.monetization_on),
-                  title: Text(items[index]['valor'].toString()),
-                  subtitle: Text(items[index]['numero_conta'].toString()),
-                ),
-              ),
+              itemBuilder: (context, index) {
+                final Transferencia transferencia = Transferencia.fromMap(items[index]);
+                return Card(
+                  child: ListTile(
+                    leading: const Icon(Icons.monetization_on, size: 40),
+                    title: Text(transferencia.valor.toString()),
+                    subtitle: Text(transferencia.numeroConta.toString()),
+                  ),
+                );
+              },
             );
           }
         },

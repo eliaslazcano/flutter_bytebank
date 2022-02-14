@@ -28,12 +28,15 @@ class _ContatosState extends State<Contatos> {
             if (items == null) return const Center(child: CircularProgressIndicator());
             return ListView.builder(
               itemCount: items.length,
-              itemBuilder: (context, index) => Card(
-                child: ListTile(
-                  title: Text(items[index]['nome'], style: const TextStyle(fontSize: 24)),
-                  subtitle: Text(items[index]['numero_conta'].toString(), style: const TextStyle(fontSize: 16)),
-                ),
-              )
+              itemBuilder: (context, index) {
+                final Contato contato = Contato.fromMap(items[index]);
+                return Card(
+                  child: ListTile(
+                    title: Text(contato.nome, style: const TextStyle(fontSize: 24)),
+                    subtitle: Text(contato.numeroConta.toString(), style: const TextStyle(fontSize: 16)),
+                  ),
+                );
+              }
             );
           }
         },
