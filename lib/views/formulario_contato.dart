@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bytebank/database/app_database.dart';
 import 'package:flutter_bytebank/model/contato.dart';
 
 class FormularioContato extends StatelessWidget {
@@ -47,7 +48,7 @@ class FormularioContato extends StatelessWidget {
     );
   }
 
-  void _criarContato(BuildContext context) {
+  Future<void> _criarContato(BuildContext context) async {
     final String nome = _controllerIptNome.text;
     final int? numeroConta = int.tryParse(_controllerIptNumeroConta.text);
     if (nome.trim().isEmpty || numeroConta == null) {
@@ -55,7 +56,13 @@ class FormularioContato extends StatelessWidget {
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
       return;
     }
-    final contato = Contato(nome, numeroConta);
-    Navigator.pop(context, contato);
+
+    //Adicionando no banco
+    final contatoObj = {'nome': nome, 'numero_conta': numeroConta};
+    final db = await AppDatabase.obterConexao();
+    await db.insert('contatos', contatoObj);
+    db.close();
+
+    Navigator.pop(context);
   }
 }

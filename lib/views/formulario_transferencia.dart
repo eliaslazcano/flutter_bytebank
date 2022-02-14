@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bytebank/model/transferencia.dart';
 
+import '../database/app_database.dart';
+
 class FormularioTransferencia extends StatelessWidget {
   final _controllerIptNumeroConta = TextEditingController();
   final _controllerIptValor = TextEditingController();
@@ -42,17 +44,21 @@ class FormularioTransferencia extends StatelessWidget {
     );
   }
 
-  void _criarTransferencia(BuildContext context) {
+  Future<void> _criarTransferencia(BuildContext context) async {
     final int? numeroConta = int.tryParse(_controllerIptNumeroConta.text);
     final double? valor = double.tryParse(_controllerIptValor.text);
     if (numeroConta == null || valor == null) {
-      const snackBar = SnackBar(
-        content: Text('Um ou mais dados inválidos'),
-      );
+      const snackBar = SnackBar(content: Text('Um ou mais dados inválidos'));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
       return;
     }
-    final transferencia = Transferencia(valor, numeroConta);
-    Navigator.pop(context, transferencia);
+
+    //Adicionando no banco
+    final transferenciaObj = {'valor': valor, 'numero_conta': numeroConta};
+    final db = await AppDatabase.obterConexao();
+    await db.insert('transferencias', transferenciaObj);
+    db.close();
+
+    Navigator.pop(context);
   }
 }
