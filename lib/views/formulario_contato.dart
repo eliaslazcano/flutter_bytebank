@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bytebank/database/dao/contato_dao.dart';
 import 'package:flutter_bytebank/model/contato.dart';
 
 class FormularioContato extends StatelessWidget {
@@ -57,10 +56,7 @@ class FormularioContato extends StatelessWidget {
       return;
     }
 
-    //Adicionando no banco
     final contato = Contato(nome: nome, numeroConta: numeroConta);
-    await ContatoDao().inserir(contato);
-
-    Navigator.pop(context);
+    Navigator.pop(context, contato);
   }
 }

@@ -1,7 +1,8 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter_bytebank/database/dao/contato_dao.dart';
 import 'package:flutter_bytebank/model/contato.dart';
 import 'package:flutter_bytebank/views/formulario_contato.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Contatos extends StatefulWidget {
 
@@ -12,28 +13,26 @@ class Contatos extends StatefulWidget {
 }
 
 class _ContatosState extends State<Contatos> {
-  final items = <Contato>[];
+  List<dynamic> contatos = [];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Contatos')),
-      body: FutureBuilder<List<Contato>>(
-        future: ContatoDao().listar(),
+      body: FutureBuilder<void>(
+        future: loadContatos(),
         builder: (context, snapshot) {
           if (snapshot.connectionState != ConnectionState.done) {
             return const Center(child: CircularProgressIndicator());
           } else {
-            final items = snapshot.data;
-            if (items == null) return const Center(child: CircularProgressIndicator());
+            if (contatos.isEmpty) return const Center(child: Text('Nenhum contato encontrado'));
             return ListView.builder(
-              itemCount: items.length,
+              itemCount: contatos.length,
               itemBuilder: (context, index) {
-                final Contato contato = items[index];
                 return Card(
                   child: ListTile(
-                    title: Text(contato.nome, style: const TextStyle(fontSize: 24)),
-                    subtitle: Text(contato.numeroConta.toString(), style: const TextStyle(fontSize: 16)),
+                    title: Text(contatos[index]['nome'], style: const TextStyle(fontSize: 24)),
+                    subtitle: Text(contatos[index]['numeroConta'].toString(), style: const TextStyle(fontSize: 16)),
                   ),
                 );
               }
@@ -44,10 +43,22 @@ class _ContatosState extends State<Contatos> {
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: () async {
-          await Navigator.push(context, MaterialPageRoute(builder: (context) => FormularioContato()));
-          setState(() {});
+          final Contato? contato = await Navigator.push(context, MaterialPageRoute(builder: (context) => FormularioContato()));
+          if (contato != null) {
+            contatos.add(contato);
+            final prefs = await SharedPreferences.getInstance();
+            await prefs.setString('contatos', jsonEncode(contatos));
+            setState(() {});
+          }
         },
       ),
     );
+  }
+
+  Future<void> loadContatos() async {
+    final prefs = await SharedPreferences.getInstance();
+    final String? contatosJson = prefs.getString('contatos');
+    if (contatosJson == null) return;
+    contatos = jsonDecode(contatosJson);
   }
 }

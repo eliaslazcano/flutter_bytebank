@@ -18,6 +18,10 @@ class Contato {
     };
   }
 
+  Map<String, dynamic> toJson() {
+    return {'id': id, 'nome': nome, 'numeroConta': numeroConta};
+  }
+
   static Contato fromMap(Map<String, dynamic> map) {
     return Contato(id: map['id'], nome: map['nome'], numeroConta: map['numero_conta']);
   }
