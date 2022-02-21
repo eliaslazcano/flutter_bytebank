@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bytebank/views/home_page.dart';
+import 'package:flutter_bytebank/views/dashboard.dart';
 
 void main() => runApp(const BytebankApp());
 
@@ -10,7 +10,7 @@ class BytebankApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-        home: HomePage(),
+        home: Dashboard(),
     );
   }
 }
