@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bytebank/database/dao/transferencia_dao.dart';
+import 'package:flutter_bytebank/model/saldo.dart';
 import 'package:flutter_bytebank/model/transferencia.dart';
+import 'package:provider/provider.dart';
 
 class FormularioTransferencia extends StatelessWidget {
   final _controllerIptNumeroConta = TextEditingController();
@@ -55,7 +57,7 @@ class FormularioTransferencia extends StatelessWidget {
     //Adicionando no banco
     final transferencia = Transferencia(valor: valor, numeroConta: numeroConta);
     await TransferenciaDao().inserir(transferencia);
-
+    Provider.of<Saldo>(context, listen: false).adiciona(transferencia.valor);
     Navigator.pop(context);
   }
 }

@@ -1,10 +1,22 @@
-class Saldo {
-  final double valor;
+import 'package:flutter/material.dart';
+
+class Saldo extends ChangeNotifier {
+  double valor;
 
   Saldo(this.valor);
 
   @override
   String toString() {
     return 'R\$ ' + valor.toStringAsFixed(2).replaceAll('.', ',');
+  }
+
+  void adiciona(double valor) {
+    this.valor += valor;
+    notifyListeners();
+  }
+
+  void subtrair(double valor) {
+    this.valor -= valor;
+    notifyListeners();
   }
 }

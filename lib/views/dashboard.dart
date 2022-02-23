@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bytebank/components/saldo_card.dart';
-import 'package:flutter_bytebank/model/saldo.dart';
 import 'package:flutter_bytebank/views/contatos.dart';
 import 'package:flutter_bytebank/views/transferencias.dart';
 
@@ -17,9 +16,9 @@ class Dashboard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 4, right: 4, top: 4),
-                child: SaldoCard(Saldo(30)),
+              const Padding(
+                padding: EdgeInsets.only(left: 4, right: 4, top: 4),
+                child: SaldoCard(),
               ),
               Padding(
                 padding: const EdgeInsets.all(8),
