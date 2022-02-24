@@ -17,7 +17,7 @@ class _TransferenciasState extends State<Transferencias> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Transferências'),),
+      appBar: AppBar(title: const Text('Transferências')),
       body: FutureBuilder<List<Transferencia>>(
         future: TransferenciaDao().listar(),
         builder: (context, snapshot) {

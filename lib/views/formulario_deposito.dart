@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bytebank/model/extrato.dart';
 import 'package:flutter_bytebank/model/saldo.dart';
+import 'package:flutter_bytebank/model/transferencia.dart';
 import 'package:provider/provider.dart';
 
 class FormularioDeposito extends StatelessWidget {
@@ -31,6 +33,7 @@ class FormularioDeposito extends StatelessWidget {
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   return;
                 }
+                Provider.of<Extrato>(context, listen: false).adiciona(Transferencia(valor: valor, numeroConta: 0));
                 Provider.of<Saldo>(context, listen: false).adiciona(valor);
                 Navigator.pop(context);
               },

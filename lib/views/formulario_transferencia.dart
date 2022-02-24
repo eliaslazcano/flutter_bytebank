@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bytebank/database/dao/transferencia_dao.dart';
+import 'package:flutter_bytebank/model/extrato.dart';
 import 'package:flutter_bytebank/model/saldo.dart';
 import 'package:flutter_bytebank/model/transferencia.dart';
 import 'package:provider/provider.dart';
@@ -18,20 +19,20 @@ class FormularioTransferencia extends StatelessWidget {
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               child: TextField(
                 controller: _controllerIptNumeroConta,
-                decoration: InputDecoration(labelText: 'Número da conta', hintText: '0000'),
-                style: TextStyle(fontSize: 24),
+                decoration: const InputDecoration(labelText: 'Número da conta', hintText: '0000'),
+                style: const TextStyle(fontSize: 24),
                 keyboardType: TextInputType.number,
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               child: TextField(
                 controller: _controllerIptValor,
-                decoration: InputDecoration(labelText: 'Valor', hintText: '0.00', icon: Icon(Icons.monetization_on)),
-                style: TextStyle(fontSize: 24),
+                decoration: const InputDecoration(labelText: 'Valor', hintText: '0.00', icon: Icon(Icons.monetization_on)),
+                style: const TextStyle(fontSize: 24),
                 keyboardType: TextInputType.number,
               ),
             ),
@@ -57,7 +58,8 @@ class FormularioTransferencia extends StatelessWidget {
     //Adicionando no banco
     final transferencia = Transferencia(valor: valor, numeroConta: numeroConta);
     await TransferenciaDao().inserir(transferencia);
-    Provider.of<Saldo>(context, listen: false).adiciona(transferencia.valor);
+    Provider.of<Extrato>(context, listen: false).adiciona(Transferencia(valor: -valor, numeroConta: numeroConta));
+    Provider.of<Saldo>(context, listen: false).subtrair(transferencia.valor);
     Navigator.pop(context);
   }
 }
