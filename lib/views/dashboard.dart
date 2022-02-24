@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bytebank/components/saldo_card.dart';
 import 'package:flutter_bytebank/views/contatos.dart';
+import 'package:flutter_bytebank/views/formulario_deposito.dart';
 import 'package:flutter_bytebank/views/transferencias.dart';
 
 class Dashboard extends StatelessWidget {
@@ -32,6 +33,7 @@ class Dashboard extends StatelessWidget {
                     children: [
                       _botaoNavegar(context, 'Contatos', Icons.people, () => const Contatos()),
                       _botaoNavegar(context, 'Transferências', Icons.monetization_on, () => const Transferencias()),
+                      _botaoNavegar(context, 'Receber depósito', Icons.add_circle, () => FormularioDeposito()),
                     ],
                   ),
                 ),
