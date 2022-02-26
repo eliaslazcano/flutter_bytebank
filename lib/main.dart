@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bytebank/model/extrato.dart';
 import 'package:flutter_bytebank/model/saldo.dart';
 import 'package:flutter_bytebank/views/autenticacao/login.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
 void main() => runApp(
@@ -21,7 +22,15 @@ class BytebankApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        home: Login(),
+      title: 'ByteBank',
+      home: Login(),
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate
+      ],
+      supportedLocales: const [
+        Locale('pt', 'BR')
+      ],
     );
   }
 }
