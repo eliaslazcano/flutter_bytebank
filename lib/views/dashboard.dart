@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bytebank/components/saldo_card.dart';
+import 'package:flutter_bytebank/views/autenticacao/login.dart';
 import 'package:flutter_bytebank/views/contatos.dart';
 import 'package:flutter_bytebank/views/extrato.dart';
 import 'package:flutter_bytebank/views/formulario_deposito.dart';
@@ -24,7 +25,7 @@ class Dashboard extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.all(8),
-                child: Image.asset('images/bytebank_logo.png'),
+                child: Image.asset('assets/images/bytebank_logo.png'),
               ),
               Padding(
                 padding: const EdgeInsets.all(8),
@@ -38,6 +39,19 @@ class Dashboard extends StatelessWidget {
                       _botaoNavegar(context, 'Extrato', Icons.list_alt, () => const Extrato()),
                     ],
                   ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8),
+                child: OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    minimumSize: const Size.fromHeight(36),
+                    side: BorderSide(color: Theme.of(context).colorScheme.primary),
+                  ),
+                  child: const Text('Sair'),
+                  onPressed: () {
+                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Login()), (route) => false);
+                  },
                 ),
               )
             ],

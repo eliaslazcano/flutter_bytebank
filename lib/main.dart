@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bytebank/model/extrato.dart';
 import 'package:flutter_bytebank/model/saldo.dart';
-import 'package:flutter_bytebank/views/dashboard.dart';
+import 'package:flutter_bytebank/views/autenticacao/login.dart';
 import 'package:provider/provider.dart';
 
 void main() => runApp(
@@ -20,8 +20,8 @@ class BytebankApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-        home: Dashboard(),
+    return MaterialApp(
+        home: Login(),
     );
   }
 }
