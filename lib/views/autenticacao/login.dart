@@ -48,11 +48,6 @@ class Login extends StatelessWidget {
     );
   }
 
-  bool _validaCampos() {
-    if (_controllerIptCpf.text.isEmpty || _controllerIptSenha.text.isEmpty) return false;
-    return true;
-  }
-
   Widget _construirFormulario(context) {
     return Form(
       key: _formkey,

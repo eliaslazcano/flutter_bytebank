@@ -2,7 +2,9 @@ import 'package:brasil_fields/brasil_fields.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bytebank/components/mensagem.dart';
+import 'package:flutter_bytebank/model/cliente.dart';
+import 'package:flutter_bytebank/views/dashboard.dart';
+import 'package:provider/provider.dart';
 
 class Registrar extends StatelessWidget {
   final _formkey = GlobalKey<FormState>();
@@ -158,12 +160,7 @@ class Registrar extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    if (_formkey.currentState!.validate()) {
-                      exibirAlerta(context: context, content: 'Em desenvolvimento');
-                    }
-                    else {
-                      exibirAlerta(context: context, content: 'Existem campos inválidos');
-                    }
+                    if (_formkey.currentState!.validate()) _salvar(context);
                   },
                   child: const Text('Registrar')
                 ),
@@ -173,5 +170,11 @@ class Registrar extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _salvar(context) {
+    final Cliente cliente = Provider.of<Cliente>(context, listen: false);
+    cliente.nome = _controllerIptNome.text;
+    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const Dashboard()), (route) => false);
   }
 }

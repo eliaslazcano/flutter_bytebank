@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bytebank/model/cliente.dart';
 import 'package:flutter_bytebank/model/extrato.dart';
 import 'package:flutter_bytebank/model/saldo.dart';
 import 'package:flutter_bytebank/views/autenticacao/login.dart';
@@ -11,6 +12,7 @@ void main() => runApp(
     providers: [
       ChangeNotifierProvider(create: (context) => Saldo(29.90)),
       ChangeNotifierProvider(create: (context) => Extrato()),
+      ChangeNotifierProvider(create: (context) => Cliente()),
     ],
   ),
 );
