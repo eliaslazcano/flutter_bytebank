@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bytebank/model/cliente.dart';
 import 'package:flutter_bytebank/views/dashboard.dart';
 import 'package:provider/provider.dart';
+import 'package:flux_validator_dart/flux_validator_dart.dart';
 
 class Registrar extends StatelessWidget {
 
@@ -72,22 +73,14 @@ class Registrar extends StatelessWidget {
               decoration: const InputDecoration(labelText: 'Email'),
               keyboardType: TextInputType.emailAddress,
               maxLength: 255,
-              validator: (value) {
-                if (value!.isEmpty) return 'Informe seu e-mail';
-                if (!value.contains('@') || !value.contains('.') || value.length < 3) return 'Informe um e-mail válido';
-                return null;
-              },
+              validator: (value) => Validator.email(value) ? 'E-mail inválido' : null,
             ),
             TextFormField(
               controller: _controllerIptCpf,
               decoration: const InputDecoration(labelText: 'CPF'),
               keyboardType: TextInputType.number,
               maxLength: 14,
-              validator: (value) {
-                if (value!.isEmpty) return 'Informe o seu CPF';
-                if (value.length < 14) return 'Informe um CPF válido de 11 dígitos';
-                return null;
-              },
+              validator: (value) => Validator.cpf(value) ? 'CPF inválido' : null,
               inputFormatters: [
                 FilteringTextInputFormatter.digitsOnly,
                 CpfInputFormatter()
@@ -98,11 +91,7 @@ class Registrar extends StatelessWidget {
               decoration: const InputDecoration(labelText: 'Celular'),
               keyboardType: TextInputType.number,
               maxLength: 15,
-              validator: (value) {
-                if (value!.isEmpty) return 'Informe o seu número de celular';
-                if (value.length < 15) return 'Falta algum dígito';
-                return null;
-              },
+              validator: (value) => Validator.phone(value) ? 'Celular inválido' : null,
               inputFormatters: [
                 FilteringTextInputFormatter.digitsOnly,
                 TelefoneInputFormatter()
@@ -136,11 +125,7 @@ class Registrar extends StatelessWidget {
               decoration: const InputDecoration(labelText: 'Cep'),
               keyboardType: TextInputType.number,
               maxLength: 10,
-              validator: (value) {
-                if (value!.isEmpty) return 'Informe o seu CEP';
-                if (value.length < 10) return 'CEP inválido';
-                return null;
-              },
+              validator: (value) => Validator.cep(value) ? 'CEP inválido' : null,
               inputFormatters: [
                 FilteringTextInputFormatter.digitsOnly,
                 CepInputFormatter()
