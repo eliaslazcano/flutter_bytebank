@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 
 class Cliente extends ChangeNotifier {
-  String? _nome;
+  int etapaAtual = 0;
+  String? nome;
+  String? email;
+  String? cpf;
+  String? celular;
+  String? nascimento;
 
-  String? get nome => _nome;
+  String? cep;
+  String? estado;
+  String? cidade;
+  String? bairro;
+  String? logradouro;
+  String? numero;
 
-  set nome(String? value) {
-    _nome = value;
-    notifyListeners();
-  }
+  void atualizarProvider() => notifyListeners();
 }
