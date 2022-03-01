@@ -1,9 +1,11 @@
+import 'dart:io';
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bytebank/model/cliente.dart';
 import 'package:flutter_bytebank/views/dashboard.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:flux_validator_dart/flux_validator_dart.dart';
 
@@ -30,6 +32,7 @@ class Registrar extends StatelessWidget {
   final _formUserAuth = GlobalKey<FormState>();
   final TextEditingController _controllerIptSenha = TextEditingController();
   final TextEditingController _controllerIptConfirmarSenha = TextEditingController();
+  final ImagePicker _picker = ImagePicker();
 
   Registrar({Key? key}) : super(key: key);
 
@@ -128,7 +131,7 @@ class Registrar extends StatelessWidget {
               validator: (value) => Validator.cep(value) ? 'CEP inválido' : null,
               inputFormatters: [
                 FilteringTextInputFormatter.digitsOnly,
-                CepInputFormatter()
+                CepInputFormatter(ponto: false)
               ],
             ),
             DropdownButtonFormField(
@@ -209,6 +212,18 @@ class Registrar extends StatelessWidget {
                 return null;
               },
             ),
+            const SizedBox(height: 16),
+            const Text('Para prosseguir com seu cadastro é necessário que tenhamos uma foto do seu RG'),
+            ButtonBar(
+              alignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  child: const Text('Tirar foto do meu RG'),
+                  onPressed: () => _capturarRg(cliente),
+                ),
+              ],
+            ),
+            _jaEnviouRg(cliente) ? _imagemDoRg(cliente) : _pedidoDeRg(),
           ],
         ),
       ),
@@ -272,10 +287,32 @@ class Registrar extends StatelessWidget {
     }
   }
   void _salvarStep3(Cliente cliente, context) {
-    if (_formUserAuth.currentState!.validate()) {
+    if (_formUserAuth.currentState!.validate() && cliente.imagemRg != null) {
       FocusScope.of(context).unfocus(); // tira o foco para ocasionar o fechamento do teclsdo
       Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const Dashboard()), (route) => false);
       cliente.etapaAtual = 0;
     }
+  }
+
+  Future<void> _capturarRg(Cliente cliente) async {
+    final XFile? foto = await _picker.pickImage(source: ImageSource.camera);
+    if (foto != null) {
+      cliente.imagemRg = File(foto.path);
+      cliente.atualizarProvider();
+    }
+  }
+  bool _jaEnviouRg(Cliente cliente) {
+    return cliente.imagemRg != null;
+  }
+  Widget _imagemDoRg(Cliente cliente) {
+    return Image.file(cliente.imagemRg ?? File(''));
+  }
+  Widget _pedidoDeRg() {
+    return Column(
+      children: const [
+        SizedBox(height: 8),
+        Text('Foto de RG pendente!', style: TextStyle(color: Colors.red, fontSize: 16))
+      ],
+    );
   }
 }

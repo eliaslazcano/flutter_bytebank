@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 
 class Cliente extends ChangeNotifier {
@@ -14,6 +15,8 @@ class Cliente extends ChangeNotifier {
   String? bairro;
   String? logradouro;
   String? numero;
+
+  File? imagemRg;
 
   void atualizarProvider() => notifyListeners();
 }
