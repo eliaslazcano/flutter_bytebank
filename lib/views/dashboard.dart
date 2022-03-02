@@ -33,10 +33,10 @@ class Dashboard extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: [
-                      _botaoNavegar(context, 'Contatos', Icons.people, () => const Contatos()),
-                      _botaoNavegar(context, 'Transferências', Icons.monetization_on, () => const Transferencias()),
-                      _botaoNavegar(context, 'Receber depósito', Icons.add_circle, () => FormularioDeposito()),
-                      _botaoNavegar(context, 'Extrato', Icons.list_alt, () => const Extrato()),
+                      _botaoNavegar(context, 'Contatos', 'Chave-valor', Icons.people, () => const Contatos()),
+                      _botaoNavegar(context, 'Transferências', 'SQLite', Icons.monetization_on, () => const Transferencias()),
+                      _botaoNavegar(context, 'Receber depósito', 'Provider', Icons.add_circle, () => FormularioDeposito()),
+                      _botaoNavegar(context, 'Extrato', 'Provider', Icons.list_alt, () => const Extrato()),
                     ],
                   ),
                 ),
@@ -61,7 +61,7 @@ class Dashboard extends StatelessWidget {
     );
   }
 
-  _botaoNavegar(BuildContext context, String titulo, IconData icone, [Function? view]) {
+  _botaoNavegar(BuildContext context, String titulo, String subtitulo, IconData icone, [Function? view]) {
     return Padding(
       padding: const EdgeInsets.only(right: 8),
       child: Material(
@@ -76,7 +76,13 @@ class Dashboard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Icon(icone, color: Colors.white, size: 24),
-                Text(titulo, style: const TextStyle(color: Colors.white, fontSize: 16))
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(titulo, style: const TextStyle(color: Colors.white, fontSize: 16)),
+                    Text(subtitulo, style: const TextStyle(color: Colors.white, fontSize: 12)),
+                  ],
+                )
               ],
             ),
           ),
