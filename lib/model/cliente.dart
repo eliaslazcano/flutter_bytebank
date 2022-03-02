@@ -18,5 +18,7 @@ class Cliente extends ChangeNotifier {
 
   File? imagemRg;
 
+  bool biometria = false;
+
   void atualizarProvider() => notifyListeners();
 }

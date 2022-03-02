@@ -3,6 +3,7 @@ import 'package:brasil_fields/brasil_fields.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bytebank/components/biometria.dart';
 import 'package:flutter_bytebank/model/cliente.dart';
 import 'package:flutter_bytebank/views/dashboard.dart';
 import 'package:image_picker/image_picker.dart';
@@ -224,6 +225,7 @@ class Registrar extends StatelessWidget {
               ],
             ),
             _jaEnviouRg(cliente) ? _imagemDoRg(cliente) : _pedidoDeRg(),
+            Biometria()
           ],
         ),
       ),
