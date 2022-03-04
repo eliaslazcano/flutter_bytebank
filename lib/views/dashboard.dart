@@ -5,6 +5,7 @@ import 'package:flutter_bytebank/views/contatos.dart';
 import 'package:flutter_bytebank/views/extrato.dart';
 import 'package:flutter_bytebank/views/formulario_deposito.dart';
 import 'package:flutter_bytebank/views/transferencias.dart';
+import 'package:flutter_bytebank/views/transferencias_http.dart';
 
 class Dashboard extends StatelessWidget {
   const Dashboard({Key? key}) : super(key: key);
@@ -35,6 +36,7 @@ class Dashboard extends StatelessWidget {
                     children: [
                       _botaoNavegar(context, 'Contatos', 'Chave-valor', Icons.people, () => const Contatos()),
                       _botaoNavegar(context, 'Transferências', 'SQLite', Icons.monetization_on, () => const Transferencias()),
+                      _botaoNavegar(context, 'Transferências', 'HTTP', Icons.monetization_on, () => TransferenciasHttp()),
                       _botaoNavegar(context, 'Receber depósito', 'Provider', Icons.add_circle, () => FormularioDeposito()),
                       _botaoNavegar(context, 'Extrato', 'Provider', Icons.list_alt, () => const Extrato()),
                     ],
