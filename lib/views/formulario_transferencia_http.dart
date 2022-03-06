@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bytebank/http/webclients/transferencia_webclient.dart';
+import 'package:flutter_bytebank/model/transferencia.dart';
 
 class FormularioTransferenciaHttp extends StatelessWidget {
   final _controllerIptNumeroConta = TextEditingController();
@@ -32,7 +34,7 @@ class FormularioTransferenciaHttp extends StatelessWidget {
               ),
             ),
             ElevatedButton(
-              onPressed: () => _criarTransferencia(context),
+              onPressed: () => _salvarTransferencia(context),
               child: const Text('Confirmar'),
             ),
           ],
@@ -41,7 +43,17 @@ class FormularioTransferenciaHttp extends StatelessWidget {
     );
   }
 
-  _criarTransferencia(BuildContext context) async {
-    // TODO - Implementar..
+  _salvarTransferencia(BuildContext context) async {
+    final int? numeroConta = int.tryParse(_controllerIptNumeroConta.text);
+    final double? valor = double.tryParse(_controllerIptValor.text);
+    if (numeroConta == null || valor == null) {
+      const snackBar = SnackBar(content: Text('Um ou mais dados inválidos'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      return;
+    }
+    final transferencia = Transferencia(valor: valor, numeroConta: numeroConta);
+
+    TransferenciaWebClient.salvarTransferencia(transferencia);
+    Navigator.pop(context);
   }
 }
